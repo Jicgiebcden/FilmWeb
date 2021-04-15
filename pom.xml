@@ -11,9 +11,9 @@
 		<!--<module>hiup-filmweb-core</module>-->
 		<!--<module>hiup-filmweb-web</module>-->
 		<!--<module>hiup-filmweb-commons</module>-->
-		<module>hiupfilmwebcore</module>
-		<module>hiupfilmwebweb</module>
-		<module>hiupfilmwebcommons</module>
+		<module>core</module>
+		<module>commons</module>
+		<module>web</module>
 	</modules>
 
 	<profiles>
