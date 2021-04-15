@@ -11,9 +11,9 @@
 		<!--<module>hiup-filmweb-core</module>-->
 		<!--<module>hiup-filmweb-web</module>-->
 		<!--<module>hiup-filmweb-commons</module>-->
-		<module>core</module>
-		<module>commons</module>
-		<module>web</module>
+		<module>filmweb-core</module>
+		<module>filmweb-commons</module>
+		<module>filmweb-web</module>
 	</modules>
 
 	<profiles>
@@ -54,6 +54,12 @@
 			<version>2.0.2.RELEASE</version>
 		</dependency>
 
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<classifier>jdk15</classifier>
+		</dependency>
 	</dependencies>
     <!--<distributionManagement>-->
         <!--<repository>-->
