@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.djhu</groupId>
+	<artifactId>hiup-filmweb</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<modules>
+		<!--<module>hiup-filmweb-core</module>-->
+		<!--<module>hiup-filmweb-web</module>-->
+		<!--<module>hiup-filmweb-commons</module>-->
+		<module>hiupfilmwebcore</module>
+		<module>hiupfilmwebweb</module>
+		<module>hiupfilmwebcommons</module>
+	</modules>
+
+	<profiles>
+	<profile>
+		<id>jdk17</id>
+		<activation>
+			<activeByDefault>true</activeByDefault>
+			<jdk>1.7</jdk>
+		</activation>
+		<properties>
+			<maven.compiler.source>1.7</maven.compiler.source>
+			<maven.compiler.target>1.7</maven.compiler.target>
+			<maven.compiler.compilerVersion>1.7</maven.compiler.compilerVersion>
+		</properties>
+	</profile>
+</profiles>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.9.RELEASE</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus</artifactId>
+			<version>2.1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>2.0.2.RELEASE</version>
+		</dependency>
+
+	</dependencies>
+    <!--<distributionManagement>-->
+        <!--<repository>-->
+            <!--<id>ats-nexus-releases</id>-->
+            <!--<name>ats-nexus-releases</name>-->
+            <!--<url>http://192.168.140.15:8081/nexus/content/repositories/releases/</url>-->
+        <!--</repository>-->
+        <!--<snapshotRepository>-->
+            <!--<id>ats-nexus-snapshots</id>-->
+            <!--<name>ats-nexus-snapshots</name>-->
+            <!--<url>http://192.168.140.15:8081/nexus/content/repositories/snapshots/</url>-->
+        <!--</snapshotRepository>-->
+    <!--</distributionManagement>-->
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
