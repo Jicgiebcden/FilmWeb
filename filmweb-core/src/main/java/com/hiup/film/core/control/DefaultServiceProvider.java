@@ -6,6 +6,7 @@ import com.hiup.film.core.logend.ParamaterInvokeInfo;
 import com.hiup.film.core.service.BaseService;
 import com.hiup.film.entity.HttpCode;
 import com.hiup.film.entity.Paramater;
+import com.hiup.film.entity.ServiceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cglib.reflect.FastClass;
@@ -33,9 +34,9 @@ public class DefaultServiceProvider implements ServiceProvider {
     @Override
     public Paramater excute(Paramater paramater) {
         BaseService baseService;
-        if (paramater.getServiceType().equals(HttpCode.ServiceType.BYNAME)){
+        if (paramater.getServiceType().equals(ServiceType.BYNAME)){
             baseService = (BaseService) applicationContext.getBean(paramater.getServiceName());
-        } else if (paramater.getServiceType().equals(HttpCode.ServiceType.BYTYPE)) {
+        } else if (paramater.getServiceType().equals(ServiceType.BYTYPE)) {
             Class clasz = null;
             try {
                 clasz = ClassUtils.forName(paramater.getServiceName(),getClass().getClassLoader());
