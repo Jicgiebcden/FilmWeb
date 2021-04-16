@@ -1,4 +1,4 @@
-package com.hiup.film.core.control;
+package com.hiup.film.entity;
 
 import com.baomidou.mybatisplus.toolkit.IdWorker;
 

@@ -1,6 +1,7 @@
 package com.hiup.film.entity;
 
 import com.hiup.film.tools.Resources;
+import net.sf.json.JSONObject;
 
 /**
  * Created by zw on 2017/12/25.
@@ -50,5 +51,23 @@ public enum HttpCode {
 
     public String toString() {
         return this.value.toString();
+    }
+
+    public static enum  ServiceType {
+        BYNAME,
+        BYTYPE;
+
+
+
+        public static void main(String[] args) {
+            JSONObject jsonObject = new JSONObject();
+            Paramater paramater = new Paramater();
+            jsonObject = JSONObject.fromObject(paramater);
+            String string = jsonObject.toString();
+            JSONObject jsonObject1 = JSONObject.fromObject(string);
+
+            Paramater paramater1 = (Paramater) JSONObject.toBean(jsonObject1,Paramater.class);
+            System.out.println(paramater1.getServiceType().equals(ServiceType.BYTYPE));
+        }
     }
 }

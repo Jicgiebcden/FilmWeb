@@ -1,5 +1,11 @@
 package com.hiup.film.core.control;
 
+import com.hiup.film.core.logend.LogEndService;
+import com.hiup.film.core.logend.LogInfo;
+import com.hiup.film.core.logend.ParamaterInvokeInfo;
+import com.hiup.film.core.service.BaseService;
+import com.hiup.film.entity.HttpCode;
+import com.hiup.film.entity.Paramater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cglib.reflect.FastClass;
@@ -14,6 +20,8 @@ public class DefaultServiceProvider implements ServiceProvider {
 
     private ApplicationContext applicationContext;
 
+    private LogEndService logEndService;
+
     public ApplicationContext getApplicationContext() {
         return applicationContext;
     }
@@ -25,9 +33,9 @@ public class DefaultServiceProvider implements ServiceProvider {
     @Override
     public Paramater excute(Paramater paramater) {
         BaseService baseService;
-        if (paramater.getServiceType().equals(ServiceType.BYNAME)){
+        if (paramater.getServiceType().equals(HttpCode.ServiceType.BYNAME)){
             baseService = (BaseService) applicationContext.getBean(paramater.getServiceName());
-        } else if (paramater.getServiceType().equals(ServiceType.BYTYPE)) {
+        } else if (paramater.getServiceType().equals(HttpCode.ServiceType.BYTYPE)) {
             Class clasz = null;
             try {
                 clasz = ClassUtils.forName(paramater.getServiceName(),getClass().getClassLoader());
@@ -45,18 +53,34 @@ public class DefaultServiceProvider implements ServiceProvider {
             FastMethod serviceFastMethod = serviceFastClass.getMethod(paramater.getMethod(), parameterTypes);
 
             LogInfo logInfo = serviceFastMethod.getJavaMethod().getAnnotation(LogInfo.class);
-            if (logInfo != null){
-
+            if (logInfo == null){
+                logInfo = (LogInfo) serviceFastClass.getJavaClass().getAnnotation(LogInfo.class);
             }
+
             Object result = null;
+            ParamaterInvokeInfo paramaterInvokeInfo = new ParamaterInvokeInfo();
+            long start = System.currentTimeMillis();
             try {
                 result = serviceFastMethod.invoke(baseService, parameters);
+                paramater.setResult(result);
             } catch (InvocationTargetException e) {
                 throw new RuntimeException(e);
-            }
-            paramater.setResult(result);
-        }
+            }finally {
+                if (logInfo != null){
+                    try {
+                        long end = System.currentTimeMillis();
+                        paramaterInvokeInfo.setParamater(paramater);
+                        paramaterInvokeInfo.setStart(start);
+                        paramaterInvokeInfo.setEnd(end);
 
-        return null;
+                        logEndService.log(paramaterInvokeInfo);
+                    }catch (Exception e){
+                        //do nothing
+                    }
+                    logEndService.log(paramaterInvokeInfo);
+                }
+            }
+        }
+        return paramater;
     }
 }

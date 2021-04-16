@@ -3,9 +3,11 @@ package com.hiup.film.web.login;
  * Created by zw on 2017/12/25.
  */
 
+import com.hiup.film.core.filterhandler.FilterWebMvcConfigurerAdapter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,6 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @Configuration
 @RestController
+@Import(value = {FilterWebMvcConfigurerAdapter.class})
 public class Login {
     @RequestMapping("/login")
     public String login(){
